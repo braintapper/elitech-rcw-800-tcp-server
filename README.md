@@ -19,6 +19,8 @@ Elitech was kind enough to not document *anything* at all, so I had to figure ou
 
 The data logger sends three types of messages to the TCP server, but only one of them matters.
 
+Sometimes duplicate messages are sent by the data logger, for whatever reason.
+
 The message that matters is 45 characters long (as a string), or 90 characters long (as hex). The hex value is what matters.
 
 Example of what the hex message looks like:
@@ -71,6 +73,8 @@ Posm   Hex  Dec    Usage
 86-87  eb   235 
 88-89  45   69
 ```
+
+Note that the device GUID from the device settings does not match the GUID on the sticker on the back of the device.
 
 
 
