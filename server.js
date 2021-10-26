@@ -2,41 +2,44 @@ var Sugar, host, lastReading, net, port;
 
 net = require('net');
 
+// Sugar used for formatting and other helper functions
 Sugar = require('sugar');
-
 Sugar.extend();
 
 lastReading = "";
 
 const server = net.createServer();
 
-host = "0.0.0.0";
-port = 5580;
+host = "0.0.0.0"; // listening address
+port = 5580; // default port
+dateFormat = "%Y-%m-%d %H:%M:%S" // YYYY-MM-DD HH:MM:SS
 
 server.listen(port, host, function() {
-  return console.log("[" + (Date.create().format("%Y-%m-%d %H:%M:%S")) + "] Start listening on " + (server.address().address) + ":" + (server.address().port));
+  return console.log("[" + (Date.create().format(dateFormat)) + "] Start listening on " + (server.address().address) + ":" + (server.address().port));
 });
 
 server.on("connection", function(sock) {
-  console.log("[" + (Date.create().format("%Y-%m-%d %H:%M:%S")) + "] Connection from " + sock.remoteAddress + ":" + sock.remotePort);
+  console.log("[" + (Date.create().format(dateFormat)) + "] Connection from " + sock.remoteAddress + ":" + sock.remotePort);
   sock.on("data", function(data) {
-    var guid, hex, logEntry;
+    var guid, hex, logEntry, timestamp;
     hex = data.toString('hex');
-    sock.write("\r\n");
+    sock.write("\r\n"); // dummy response
     if (hex.length === 90) {
-      console.log("[" + (Date.create().format("%Y-%m-%d %H:%M:%S")) + "] " + hex);
+      console.log("[" + (Date.create().format(dateFormat)) + "] " + hex);
       guid = "";
-      [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].forEach(function(o, index) {
-        return guid += parseInt(hex.substr(o * 2, 2), 16).pad(2);
-      });
-      if (hex !== lastReading) {
+      for (o = 1; o <= 10; o++) {
+        guid += parseInt(hex.substr(o * 2, 2), 16).pad(2);
+      };
+      if (hex !== lastReading) { // skip duplicate readings
         lastReading = hex;
+        timestamp = "20" + (parseInt(hex.substr(70, 2), 16)) + "-" + (parseInt(hex.substr(72, 2), 16)) + "-" + (parseInt(hex.substr(74, 2), 16)) + " " + (parseInt(hex.substr(76, 2), 16)) + ":" + (parseInt(hex.substr(78, 2), 16)) + ":" + (parseInt(hex.substr(80, 2), 16));
         logEntry = {
           guid: guid,
+          reading_id: parseInt(timestamp.replaceAll(" ").replaceAll("-").replaceAll(":")), // the precision of the readings is to the second, so use timestamp as an id, note it isn't unique without the guid
           temperature: (parseInt(hex.substr(60, 2), 16)) + "." + (parseInt(hex.substr(58, 2), 16)),
           humidity: (parseInt(hex.substr(64, 2), 16)) + "." + (parseInt(hex.substr(62, 2), 16)),
-          sensor_timestamp: "20" + (parseInt(hex.substr(70, 2), 16)) + "-" + (parseInt(hex.substr(72, 2), 16)) + "-" + (parseInt(hex.substr(74, 2), 16)) + " " + (parseInt(hex.substr(76, 2), 16)) + ":" + (parseInt(hex.substr(78, 2), 16)) + ":" + (parseInt(hex.substr(80, 2), 16)),
-          server_timestamp: Date.create().format("{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}")
+          sensor_timestamp: timestamp,
+          server_timestamp: Date.create().format(dateFormat)
         };
 
         console.log(JSON.stringify(logEntry, null, 2));
@@ -57,13 +60,13 @@ server.on("connection", function(sock) {
     }
   });
   sock.on("close", function(data) {
-    return console.log("[" + (Date.create().format("%Y-%m-%d %H:%M:%S")) + "] Closed connection from " + sock.remoteAddress + ":" + sock.remotePort);
+    return console.log("[" + (Date.create().format(dateFormat)) + "] Closed connection from " + sock.remoteAddress + ":" + sock.remotePort);
   });
   sock.on("end", function(data) {
-    return console.log("[" + (Date.create().format("%Y-%m-%d %H:%M:%S")) + "] Disconnection from " + sock.remoteAddress + ":" + sock.remotePort);
+    return console.log("[" + (Date.create().format(dateFormat)) + "] Disconnection from " + sock.remoteAddress + ":" + sock.remotePort);
   });
   sock.on("error", function(e) {
-    console.log("[" + (Date.create().format("%Y-%m-%d %H:%M:%S")) + "] Error occurred");
+    console.log("[" + (Date.create().format(dateFormat)) + "] Error occurred");
     return console.log(e);
   });
   return sock.pipe(sock);
