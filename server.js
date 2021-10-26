@@ -15,7 +15,7 @@ port = 5580; // default port
 dateFormat = "%Y-%m-%d %H:%M:%S" // YYYY-MM-DD HH:MM:SS
 
 server.listen(port, host, function() {
-  return console.log("[" + (Date.create().format(dateFormat)) + "] Start listening on " + (server.address().address) + ":" + (server.address().port));
+  console.log("[" + (Date.create().format(dateFormat)) + "] Start listening on " + (server.address().address) + ":" + (server.address().port));
 });
 
 server.on("connection", function(sock) {
@@ -60,15 +60,15 @@ server.on("connection", function(sock) {
     }
   });
   sock.on("close", function(data) {
-    return console.log("[" + (Date.create().format(dateFormat)) + "] Closed connection from " + sock.remoteAddress + ":" + sock.remotePort);
+    console.log("[" + (Date.create().format(dateFormat)) + "] Closed connection from " + sock.remoteAddress + ":" + sock.remotePort);
   });
   sock.on("end", function(data) {
-    return console.log("[" + (Date.create().format(dateFormat)) + "] Disconnection from " + sock.remoteAddress + ":" + sock.remotePort);
+    console.log("[" + (Date.create().format(dateFormat)) + "] Disconnection from " + sock.remoteAddress + ":" + sock.remotePort);
   });
   sock.on("error", function(e) {
     console.log("[" + (Date.create().format(dateFormat)) + "] Error occurred");
-    return console.log(e);
+    console.log(e);
   });
-  return sock.pipe(sock);
+  sock.pipe(sock);
 });
 
