@@ -6,7 +6,7 @@ The TCP server listens on port `5580` for data updates from the data logger.
 
 To configure the RCW-800 data logger, you need to log into the web admin for the logger (`http://{IP ADDRESS OF LOGGER}`) with the `admin` user (default password `admin`) and change the TCP server it talks to.
 
-The default server is usually www.i-elitech.com. You can change this to the IP of the TCP server, or you can leave it and use a DNS override instead. The latter is probably the better option since the data logger sometimes resets its settings randomly, which means you will have to change the setting.
+The default server address is usually `www.i-elitech.com`. You can change this to the IP of the TCP server, or you can leave it and use a DNS override instead. The latter is probably the better option since the data logger sometimes resets its settings randomly, which means the server address will revert to `www.i-elitech.com`).
 
 **This repo is meant to be forked** as it makes no assumptions about what you intend to do with the data collected.
 
