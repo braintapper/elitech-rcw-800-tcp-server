@@ -81,7 +81,7 @@ Note that the device GUID from the device settings does not match the GUID on th
 
 ## Getting Started
 
-* Clone this repo
+* Clone and fork this repo
 * Install dependencies
 * Run the server file
 * **Add your own functionality to save the readings**
