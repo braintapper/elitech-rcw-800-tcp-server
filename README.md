@@ -12,6 +12,8 @@ The default server is usually www.i-elitech.com. You can change this to the IP o
 
 It is up to you to implement your own action such as writing to a database, email, etc.
 
+It is possible that other Elitech Wifi Data loggers will work with this server, but in the absence of having any of those devices, it's hard to say with any certainty.
+
 
 ## About the Protocol
 
@@ -77,7 +79,18 @@ Posm   Hex  Dec    Usage
 Note that the device GUID from the device settings does not match the GUID on the sticker on the back of the device.
 
 
+## Getting Started
 
+* Clone this repo
+* Install dependencies
+* Run the server file
+* Configure your RCW-800 to send TCP data to the IP of the machine running the server file
+
+```
+git clone git@github.com:braintapper/elitech-rcw-800-tcp-server.git
+npm install
+node server.js
+```
 
 
 

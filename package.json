@@ -2,7 +2,7 @@
   "name": "elitech-rcw-800-tcp-server",
   "version": "1.0.0",
   "description": "Collect temperature and humidity data from an Elitech RCW-800 Wifi Data logger",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/braintapper/elitech-rcw-800-tcp-server/issues"
   },
-  "homepage": "https://github.com/braintapper/elitech-rcw-800-tcp-server#readme"
+  "homepage": "https://github.com/braintapper/elitech-rcw-800-tcp-server#readme",
+  "dependencies": {
+    "sugar": "^2.0.6"
+  }
 }
