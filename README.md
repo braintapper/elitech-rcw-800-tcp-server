@@ -84,6 +84,7 @@ Note that the device GUID from the device settings does not match the GUID on th
 * Clone this repo
 * Install dependencies
 * Run the server file
+* **Add your own functionality to save the readings**
 * Configure your RCW-800 to send TCP data to the IP of the machine running the server file
 
 ```
