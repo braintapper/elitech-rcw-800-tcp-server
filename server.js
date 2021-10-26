@@ -6,7 +6,7 @@ net = require('net');
 Sugar = require('sugar');
 Sugar.extend();
 
-lastReading = "";
+lastReading = ""; // use this to check for duplicate readings
 
 const server = net.createServer();
 
@@ -22,9 +22,9 @@ server.on("connection", function(sock) {
   console.log("[" + (Date.create().format(dateFormat)) + "] Connection from " + sock.remoteAddress + ":" + sock.remotePort);
   sock.on("data", function(data) {
     var guid, hex, logEntry, timestamp;
-    hex = data.toString('hex');
+    hex = data.toString('hex'); // convert data to hex
     sock.write("\r\n"); // dummy response
-    if (hex.length === 90) {
+    if (hex.length === 90) { // when length == 90, it's a data reading
       console.log("[" + (Date.create().format(dateFormat)) + "] " + hex);
       guid = "";
       for (o = 1; o <= 10; o++) {
