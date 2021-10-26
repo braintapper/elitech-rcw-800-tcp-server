@@ -28,9 +28,13 @@ The message that matters is 45 characters long (as a string), or 90 characters l
 Example of what the hex message looks like:
 
 ```
-Posm   Hex  Dec    Usage
+55000000000000ffffffff55001d68001a0000001d680000000f001602501603300000150a1a0b310c4816eb45
+```
+
+```
+Pos'n  Hex  Dec    Usage
 00-01  55   85     GUID Marker Start?
-02-03  00   00     Device GUID Start - append everything, e.g., 000000000000255255255255
+02-03  00   00     Device GUID Start - append everything as 2 digit padded, e.g., 000000000000255255255255
 04-05  00   00 
 06-07  00   00 
 08-09  00   00 
@@ -41,10 +45,10 @@ Posm   Hex  Dec    Usage
 18-19  ff   255 
 20-21  ff   255    Device GUID End
 22-23  55   85     GUID Marker End?
-24-25  00   0 
+24-25  00   0      
 26-27  1d   29 
 28-29  68   104 
-30-31  00   0 
+30-31  00   0     
 32-33  1a   26 
 34-35  00   0 
 36-37  00   0 
@@ -62,8 +66,8 @@ Posm   Hex  Dec    Usage
 60-61  16   22     Temperature (left of decimal) 22.8 C
 62-63  03   3      Humidity % (right of decimal)
 64-65  30   48     Humidity % (left of decimal) 48.3 %
-66-67  00   0 
-68-69  00   0 
+66-67  00   0      
+68-69  00   0      
 70-71  15   21     Sensor Date Year (two digit year, boo) 21-10-26 11:49:12
 72-73  0a   10     Sensor Date Month
 74-75  1a   26     Sensor Date Day of Month
@@ -73,7 +77,7 @@ Posm   Hex  Dec    Usage
 82-83  48   72 
 84-85  16   22 
 86-87  eb   235 
-88-89  45   69
+88-89  45   69     EOM?
 ```
 
 Note that the device GUID from the device settings does not match the GUID on the sticker on the back of the device.
